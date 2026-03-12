@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,9 +30,4 @@ public class Receipt extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user; // Người lập phiếu
-}
-
-// Bạn có thể đặt enum này chung file hoặc tách ra file riêng biệt
-enum ReceiptStatus {
-    PENDING, COMPLETED
 }

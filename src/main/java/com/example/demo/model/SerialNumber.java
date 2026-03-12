@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,8 +35,4 @@ public class SerialNumber extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "issue_detail_id")
     private IssueDetail issueDetail;
-}
-
-enum SerialStatus {
-    AVAILABLE, SOLD, DEFECTIVE
 }
