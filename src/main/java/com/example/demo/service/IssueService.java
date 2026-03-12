@@ -1,12 +1,12 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.IssueItemRequest;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -64,30 +64,5 @@ public class IssueService {
         }
 
         return savedIssue;
-    }
-
-    // DTO cho request
-    public static class IssueItemRequest {
-        private Long productId;
-        private Integer quantity;
-        private BigDecimal exportPrice;
-
-        // Constructors, Getters, Setters
-        public IssueItemRequest() {}
-
-        public IssueItemRequest(Long productId, Integer quantity, BigDecimal exportPrice) {
-            this.productId = productId;
-            this.quantity = quantity;
-            this.exportPrice = exportPrice;
-        }
-
-        public Long getProductId() { return productId; }
-        public void setProductId(Long productId) { this.productId = productId; }
-
-        public Integer getQuantity() { return quantity; }
-        public void setQuantity(Integer quantity) { this.quantity = quantity; }
-
-        public BigDecimal getExportPrice() { return exportPrice; }
-        public void setExportPrice(BigDecimal exportPrice) { this.exportPrice = exportPrice; }
     }
 }

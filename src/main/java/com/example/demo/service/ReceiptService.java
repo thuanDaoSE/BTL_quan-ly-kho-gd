@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ReceiptItemRequest;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -65,30 +66,5 @@ public class ReceiptService {
 
     private String generateSerialCode(String skuCode, int sequence) {
         return skuCode + "-" + System.currentTimeMillis() + "-" + sequence;
-    }
-
-    // DTO cho request
-    public static class ReceiptItemRequest {
-        private Long productId;
-        private Integer quantity;
-        private BigDecimal importPrice;
-
-        // Constructors, Getters, Setters
-        public ReceiptItemRequest() {}
-
-        public ReceiptItemRequest(Long productId, Integer quantity, BigDecimal importPrice) {
-            this.productId = productId;
-            this.quantity = quantity;
-            this.importPrice = importPrice;
-        }
-
-        public Long getProductId() { return productId; }
-        public void setProductId(Long productId) { this.productId = productId; }
-
-        public Integer getQuantity() { return quantity; }
-        public void setQuantity(Integer quantity) { this.quantity = quantity; }
-
-        public BigDecimal getImportPrice() { return importPrice; }
-        public void setImportPrice(BigDecimal importPrice) { this.importPrice = importPrice; }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ReceiptItemRequest;
 import com.example.demo.dto.ReceiptRequest;
 import com.example.demo.model.Receipt;
 import com.example.demo.service.ReceiptService;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/receipts")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
 public class ReceiptController {
 
@@ -30,13 +32,7 @@ public class ReceiptController {
                     .build();
 
             // Chuyển đổi danh sách ReceiptItemRequest
-            List<ReceiptService.ReceiptItemRequest> items = request.getItems().stream()
-                    .map(item -> new ReceiptService.ReceiptItemRequest(
-                            item.getProductId(),
-                            item.getQuantity(),
-                            item.getImportPrice()
-                    ))
-                    .collect(Collectors.toList());
+            List<ReceiptItemRequest> items = request.getItems();
 
             Receipt savedReceipt = receiptService.createReceipt(receipt, items);
             

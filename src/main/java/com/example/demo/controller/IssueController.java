@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.IssueItemRequest;
 import com.example.demo.dto.IssueRequest;
 import com.example.demo.model.Issue;
 import com.example.demo.service.IssueService;
@@ -8,10 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/issues")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
 public class IssueController {
 
@@ -29,13 +30,7 @@ public class IssueController {
                     .build();
 
             // Chuyển đổi danh sách IssueItemRequest
-            List<IssueService.IssueItemRequest> items = request.getItems().stream()
-                    .map(item -> new IssueService.IssueItemRequest(
-                            item.getProductId(),
-                            item.getQuantity(),
-                            item.getExportPrice()
-                    ))
-                    .collect(Collectors.toList());
+            List<IssueItemRequest> items = request.getItems();
 
             Issue savedIssue = issueService.createIssue(issue, items);
             
