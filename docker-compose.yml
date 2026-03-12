@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Cấu hình Database MySQL
+  mysql-db:
+    image: mysql:8.0
+    container_name: wms_mysql
+    environment:
+      MYSQL_DATABASE: wms_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - wms-network
+
+  # Cấu hình Ứng dụng Spring Boot
+  wms-app:
+    build: .
+    container_name: wms_backend
+    depends_on:
+      - mysql-db
+    ports:
+      - "8080:8080"
+    environment:
+      # Cấu hình kết nối Database (Thay thế spring.datasource.*)
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/wms_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      
+      # Cấu hình Hibernate/JPA (Thay thế spring.jpa.*)
+      # Tự động tạo bảng từ Model Entity bạn đã viết
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
+      
+      # Cấu hình định dạng JSON/Thời gian
+      - SPRING_JACKSON_TIME_ZONE=Asia/Ho_Chi_Minh
+    networks:
+      - wms-network
+
+# Lưu trữ data DB vật lý để không mất dữ liệu khi tắt container
+volumes:
+  mysql_data:
+
+# Tạo network riêng để các container giao tiếp với nhau bằng tên service
+networks:
+  wms-network:
+    driver: bridge
