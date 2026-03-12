@@ -24,6 +24,7 @@ spring.datasource.username=root
 spring.datasource.password=your_password
 
 # Chạy ứng dụng
+docker-compose up -d --build
 mvn spring-boot:run
 ```
 
